@@ -122,7 +122,6 @@ public class OWLAPIFirst {
 		
 		
 		//Create an ontology and add a class and a subclass of that class
-		/*
 		IRI IOR = IRI.create("http://owl.api.tutorial");
 		try {
 			OWLOntology o = man.createOntology(IOR);
@@ -135,7 +134,7 @@ public class OWLAPIFirst {
 		} catch (OWLOntologyCreationException e) {
 			e.printStackTrace();
 		}
-		*/
+		
 		
 		
 		
