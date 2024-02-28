@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
@@ -241,49 +242,48 @@ public class OWLAPIFirst {
         }
         
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("mushroomSamples.txt"))) {
-        	
-        	// Create an OWLOntologyManager object
             OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-
-            // Specify the file path for the ontology you want to load
             File file = new File("mushroomOntologyWithSamples.owl");
-
-            // Load the ontology from the file
             OWLOntology ontology = manager.loadOntologyFromOntologyDocument(file);
             
-            // Header for the file to indicate the properties
             writer.write("MushroomID,CapShape,CapColor,Edibility");
             writer.newLine();
 
-            // Fetch all individuals of type Mushroom
-            Set<OWLNamedIndividual> mushrooms = ontology.getIndividualsInSignature();
-            for (OWLNamedIndividual mushroom : mushrooms) {
-                // Assuming we have a way to filter out only mushroom individuals if other individuals are present
+            // Iterate over all individuals in the ontology
+            for (OWLNamedIndividual mushroom : ontology.getIndividualsInSignature()) {
                 String mushroomID = mushroom.getIRI().getShortForm();
                 String capShape = "", capColor = "", edibility = "";
 
-                // Fetch property assertions for the current mushroom
                 Set<OWLObjectPropertyAssertionAxiom> properties = ontology.getObjectPropertyAssertionAxioms(mushroom);
                 for (OWLObjectPropertyAssertionAxiom property : properties) {
-                    if (property.getProperty().asOWLObjectProperty().getIRI().getShortForm().equals("hasCapShape")) {
-                        capShape = property.getObject().asOWLNamedIndividual().getIRI().getShortForm();
-                    } else if (property.getProperty().asOWLObjectProperty().getIRI().getShortForm().equals("hasCapColor")) {
-                        capColor = property.getObject().asOWLNamedIndividual().getIRI().getShortForm();
-                    } else if (property.getProperty().asOWLObjectProperty().getIRI().getShortForm().equals("hasEdibility")) {
-                        edibility = property.getObject().asOWLNamedIndividual().getIRI().getShortForm();
+                    OWLNamedIndividual object = property.getObject().asOWLNamedIndividual();
+                    String propertyShortForm = property.getProperty().asOWLObjectProperty().getIRI().getShortForm();
+                    String objectShortForm = object.getIRI().getShortForm();
+
+                    if (propertyShortForm.equals("hasCapShape")) {
+                        capShape = objectShortForm;
+                    } else if (propertyShortForm.equals("hasCapColor")) {
+                        capColor = objectShortForm;
+                    } else if (propertyShortForm.equals("hasEdibility")) {
+                        edibility = objectShortForm;
                     }
                 }
 
-                // Write the mushroom details to the file
+                // Write the mushroom details to the file only if all attributes are present
+                if (!mushroomID.startsWith("Mushroom")) {
+                    continue; // Skip non-mushroom individuals
+                }
+
                 writer.write(mushroomID + "," + capShape + "," + capColor + "," + edibility);
                 writer.newLine();
             }
 
             System.out.println("Sample data saved to mushroomSamples.txt");
-
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
 		
 		
 		
