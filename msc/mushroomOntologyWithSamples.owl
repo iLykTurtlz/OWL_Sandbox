@@ -110,13 +110,20 @@
     
 
 
+    <!-- http://example.org/mushroom#Edible -->
+
+
+    <owl:NamedIndividual rdf:about="http://example.org/mushroom#Edible"/>
+    
+
+
     <!-- http://example.org/mushroom#Mushroom1 -->
 
 
     <owl:NamedIndividual rdf:about="http://example.org/mushroom#Mushroom1">
-        <rdf:type rdf:resource="http://example.org/mushroom#Edible"/>
-        <hasCapColor rdf:resource="http://example.org/mushroom#purple"/>
-        <hasCapShape rdf:resource="http://example.org/mushroom#convex"/>
+        <hasCapColor rdf:resource="http://example.org/mushroom#brown"/>
+        <hasCapShape rdf:resource="http://example.org/mushroom#knobbed"/>
+        <hasEdibility rdf:resource="http://example.org/mushroom#Edible"/>
         <hasHabitat rdf:resource="http://example.org/mushroom#paths"/>
     </owl:NamedIndividual>
     
@@ -126,10 +133,10 @@
 
 
     <owl:NamedIndividual rdf:about="http://example.org/mushroom#Mushroom10">
-        <rdf:type rdf:resource="http://example.org/mushroom#Edible"/>
-        <hasCapColor rdf:resource="http://example.org/mushroom#red"/>
-        <hasCapShape rdf:resource="http://example.org/mushroom#convex"/>
-        <hasHabitat rdf:resource="http://example.org/mushroom#meadows"/>
+        <hasCapColor rdf:resource="http://example.org/mushroom#white"/>
+        <hasCapShape rdf:resource="http://example.org/mushroom#bell"/>
+        <hasEdibility rdf:resource="http://example.org/mushroom#Edible"/>
+        <hasHabitat rdf:resource="http://example.org/mushroom#woods"/>
     </owl:NamedIndividual>
     
 
@@ -138,9 +145,9 @@
 
 
     <owl:NamedIndividual rdf:about="http://example.org/mushroom#Mushroom2">
-        <rdf:type rdf:resource="http://example.org/mushroom#Edible"/>
-        <hasCapColor rdf:resource="http://example.org/mushroom#orange"/>
-        <hasCapShape rdf:resource="http://example.org/mushroom#flat"/>
+        <hasCapColor rdf:resource="http://example.org/mushroom#blue"/>
+        <hasCapShape rdf:resource="http://example.org/mushroom#sunken"/>
+        <hasEdibility rdf:resource="http://example.org/mushroom#Edible"/>
         <hasHabitat rdf:resource="http://example.org/mushroom#meadows"/>
     </owl:NamedIndividual>
     
@@ -150,9 +157,9 @@
 
 
     <owl:NamedIndividual rdf:about="http://example.org/mushroom#Mushroom3">
-        <rdf:type rdf:resource="http://example.org/mushroom#Poisonous"/>
-        <hasCapColor rdf:resource="http://example.org/mushroom#white"/>
+        <hasCapColor rdf:resource="http://example.org/mushroom#pink"/>
         <hasCapShape rdf:resource="http://example.org/mushroom#knobbed"/>
+        <hasEdibility rdf:resource="http://example.org/mushroom#Edible"/>
         <hasHabitat rdf:resource="http://example.org/mushroom#leaves"/>
     </owl:NamedIndividual>
     
@@ -162,10 +169,10 @@
 
 
     <owl:NamedIndividual rdf:about="http://example.org/mushroom#Mushroom4">
-        <rdf:type rdf:resource="http://example.org/mushroom#Edible"/>
-        <hasCapColor rdf:resource="http://example.org/mushroom#purple"/>
-        <hasCapShape rdf:resource="http://example.org/mushroom#sunken"/>
-        <hasHabitat rdf:resource="http://example.org/mushroom#urban"/>
+        <hasCapColor rdf:resource="http://example.org/mushroom#red"/>
+        <hasCapShape rdf:resource="http://example.org/mushroom#conical"/>
+        <hasEdibility rdf:resource="http://example.org/mushroom#Edible"/>
+        <hasHabitat rdf:resource="http://example.org/mushroom#grass"/>
     </owl:NamedIndividual>
     
 
@@ -174,10 +181,10 @@
 
 
     <owl:NamedIndividual rdf:about="http://example.org/mushroom#Mushroom5">
-        <rdf:type rdf:resource="http://example.org/mushroom#Edible"/>
-        <hasCapColor rdf:resource="http://example.org/mushroom#white"/>
-        <hasCapShape rdf:resource="http://example.org/mushroom#sunken"/>
-        <hasHabitat rdf:resource="http://example.org/mushroom#paths"/>
+        <hasCapColor rdf:resource="http://example.org/mushroom#orange"/>
+        <hasCapShape rdf:resource="http://example.org/mushroom#conical"/>
+        <hasEdibility rdf:resource="http://example.org/mushroom#Edible"/>
+        <hasHabitat rdf:resource="http://example.org/mushroom#grass"/>
     </owl:NamedIndividual>
     
 
@@ -186,10 +193,10 @@
 
 
     <owl:NamedIndividual rdf:about="http://example.org/mushroom#Mushroom6">
-        <rdf:type rdf:resource="http://example.org/mushroom#Edible"/>
-        <hasCapColor rdf:resource="http://example.org/mushroom#yellow"/>
-        <hasCapShape rdf:resource="http://example.org/mushroom#convex"/>
-        <hasHabitat rdf:resource="http://example.org/mushroom#woods"/>
+        <hasCapColor rdf:resource="http://example.org/mushroom#green"/>
+        <hasCapShape rdf:resource="http://example.org/mushroom#knobbed"/>
+        <hasEdibility rdf:resource="http://example.org/mushroom#Edible"/>
+        <hasHabitat rdf:resource="http://example.org/mushroom#grass"/>
     </owl:NamedIndividual>
     
 
@@ -198,9 +205,9 @@
 
 
     <owl:NamedIndividual rdf:about="http://example.org/mushroom#Mushroom7">
-        <rdf:type rdf:resource="http://example.org/mushroom#Edible"/>
-        <hasCapColor rdf:resource="http://example.org/mushroom#red"/>
+        <hasCapColor rdf:resource="http://example.org/mushroom#yellow"/>
         <hasCapShape rdf:resource="http://example.org/mushroom#sunken"/>
+        <hasEdibility rdf:resource="http://example.org/mushroom#Edible"/>
         <hasHabitat rdf:resource="http://example.org/mushroom#meadows"/>
     </owl:NamedIndividual>
     
@@ -210,10 +217,10 @@
 
 
     <owl:NamedIndividual rdf:about="http://example.org/mushroom#Mushroom8">
-        <rdf:type rdf:resource="http://example.org/mushroom#Edible"/>
-        <hasCapColor rdf:resource="http://example.org/mushroom#orange"/>
+        <hasCapColor rdf:resource="http://example.org/mushroom#black"/>
         <hasCapShape rdf:resource="http://example.org/mushroom#bell"/>
-        <hasHabitat rdf:resource="http://example.org/mushroom#meadows"/>
+        <hasEdibility rdf:resource="http://example.org/mushroom#Edible"/>
+        <hasHabitat rdf:resource="http://example.org/mushroom#waste"/>
     </owl:NamedIndividual>
     
 
@@ -222,9 +229,9 @@
 
 
     <owl:NamedIndividual rdf:about="http://example.org/mushroom#Mushroom9">
-        <rdf:type rdf:resource="http://example.org/mushroom#Edible"/>
-        <hasCapColor rdf:resource="http://example.org/mushroom#pink"/>
+        <hasCapColor rdf:resource="http://example.org/mushroom#red"/>
         <hasCapShape rdf:resource="http://example.org/mushroom#conical"/>
+        <hasEdibility rdf:resource="http://example.org/mushroom#Edible"/>
         <hasHabitat rdf:resource="http://example.org/mushroom#urban"/>
     </owl:NamedIndividual>
     
@@ -237,6 +244,27 @@
     
 
 
+    <!-- http://example.org/mushroom#black -->
+
+
+    <owl:NamedIndividual rdf:about="http://example.org/mushroom#black"/>
+    
+
+
+    <!-- http://example.org/mushroom#blue -->
+
+
+    <owl:NamedIndividual rdf:about="http://example.org/mushroom#blue"/>
+    
+
+
+    <!-- http://example.org/mushroom#brown -->
+
+
+    <owl:NamedIndividual rdf:about="http://example.org/mushroom#brown"/>
+    
+
+
     <!-- http://example.org/mushroom#conical -->
 
 
@@ -244,17 +272,17 @@
     
 
 
-    <!-- http://example.org/mushroom#convex -->
+    <!-- http://example.org/mushroom#grass -->
 
 
-    <owl:NamedIndividual rdf:about="http://example.org/mushroom#convex"/>
+    <owl:NamedIndividual rdf:about="http://example.org/mushroom#grass"/>
     
 
 
-    <!-- http://example.org/mushroom#flat -->
+    <!-- http://example.org/mushroom#green -->
 
 
-    <owl:NamedIndividual rdf:about="http://example.org/mushroom#flat"/>
+    <owl:NamedIndividual rdf:about="http://example.org/mushroom#green"/>
     
 
 
@@ -300,13 +328,6 @@
     
 
 
-    <!-- http://example.org/mushroom#purple -->
-
-
-    <owl:NamedIndividual rdf:about="http://example.org/mushroom#purple"/>
-    
-
-
     <!-- http://example.org/mushroom#red -->
 
 
@@ -325,6 +346,13 @@
 
 
     <owl:NamedIndividual rdf:about="http://example.org/mushroom#urban"/>
+    
+
+
+    <!-- http://example.org/mushroom#waste -->
+
+
+    <owl:NamedIndividual rdf:about="http://example.org/mushroom#waste"/>
     
 
 

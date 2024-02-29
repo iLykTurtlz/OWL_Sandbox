@@ -224,13 +224,27 @@ public class OWLAPIFirst {
                 manager.addAxiom(ontology, factory.getOWLObjectPropertyAssertionAxiom(hasCapColor, mushroom, capColorIndividual));
                 manager.addAxiom(ontology, factory.getOWLObjectPropertyAssertionAxiom(hasHabitat, mushroom, habitatIndividual));
 
-                // Apply the P_4 axiom logic to predict edibility
-                OWLClass predictedClass = (selectedHabitat.equals("leaves") && selectedCapColor.equals("white")) ? 
-                                          factory.getOWLClass(IRI.create(ontologyIRI + "#Poisonous")) : 
-                                          factory.getOWLClass(IRI.create(ontologyIRI + "#Edible"));
+                // Determine the edibility based on the conditions
+                OWLNamedIndividual edibilityStatus;
+                if (selectedHabitat.equals("leaves") && selectedCapColor.equals("white")) {
+                    edibilityStatus = factory.getOWLNamedIndividual(IRI.create(ontologyIRI + "#Poisonous"));
+                } else {
+                    edibilityStatus = factory.getOWLNamedIndividual(IRI.create(ontologyIRI + "#Edible"));
+                }
 
-                // Annotate the mushroom individual with the predicted class (edibility)
-                manager.addAxiom(ontology, factory.getOWLClassAssertionAxiom(predictedClass, mushroom));
+                // Explicitly assign the edibility status to the mushroom
+                manager.addAxiom(ontology, factory.getOWLObjectPropertyAssertionAxiom(hasEdibility, mushroom, edibilityStatus));
+            }
+            
+            for (OWLNamedIndividual mushroom : ontology.getIndividualsInSignature()) {
+                System.out.println("Mushroom: " + mushroom.getIRI().getShortForm());
+                
+                Set<OWLObjectPropertyAssertionAxiom> properties = ontology.getObjectPropertyAssertionAxioms(mushroom);
+                for (OWLObjectPropertyAssertionAxiom property : properties) {
+                    System.out.println("Property: " + property.getProperty().asOWLObjectProperty().getIRI().getShortForm() +
+                                       ", Value: " + property.getObject().asOWLNamedIndividual().getIRI().getShortForm());
+                }
+                System.out.println("------");
             }
 
             // Save the ontology with the sample data
