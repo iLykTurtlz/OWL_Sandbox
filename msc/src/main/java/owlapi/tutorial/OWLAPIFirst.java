@@ -4,8 +4,10 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -30,8 +32,16 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
+
+import com.opencsv.CSVParser;
+import com.opencsv.CSVParserBuilder;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
+import com.opencsv.exceptions.CsvException;
+
 
 @SuppressWarnings("unused")
 public class OWLAPIFirst {
@@ -161,6 +171,34 @@ public class OWLAPIFirst {
 //			e.printStackTrace();
 //		}
 		
+		
+		//Read the Mushrooms dataset into 'data'
+		CSVParser csvParser = new CSVParserBuilder()
+				.withSeparator(',')
+				.withIgnoreQuotations(true)
+				.build();
+		
+//		List<String[]> data = null;
+		try {
+			CSVReader csvReader = new CSVReaderBuilder(new FileReader("agaricus-lepiota.csv"))
+					.withSkipLines(3)
+					.build();
+			List<String[]> data = csvReader.readAll();
+		} catch (FileNotFoundException fnfe) {
+			System.out.println("Dude, where's my file!");
+			fnfe.printStackTrace();
+		} catch (CsvException ce) {
+			System.out.println("Bruh, this thing you call a csv...it sucks.");
+			ce.printStackTrace();
+		} catch (IOException ioe) {
+			System.out.println("If you see this, you did something very wrong.");
+			ioe.printStackTrace();
+		}
+		
+		
+		
+		
+		
         try {
             // Setup
             OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
@@ -202,6 +240,11 @@ public class OWLAPIFirst {
             manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(hasCapColor));
             manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(hasHabitat));
             manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(hasEdibility));
+       
+            
+            //THE FACTORY CAN MAKE SWRLVariables!  Yay!
+            SWRLVariable var = factory.getSWRLVariable(IRI.create(ontologyIRI + "#x"));
+            
 
             Random rand = new Random();
             String[] capShapes = {"bell", "conical", "convex", "flat", "knobbed", "sunken"};
@@ -298,7 +341,7 @@ public class OWLAPIFirst {
         }
 
 
-		
+        
 		
 		
 		
