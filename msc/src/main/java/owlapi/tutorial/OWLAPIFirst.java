@@ -173,27 +173,7 @@ public class OWLAPIFirst {
 		
 		
 		//Read the Mushrooms dataset into 'data'
-		CSVParser csvParser = new CSVParserBuilder()
-				.withSeparator(',')
-				.withIgnoreQuotations(true)
-				.build();
-		
-//		List<String[]> data = null;
-		try {
-			CSVReader csvReader = new CSVReaderBuilder(new FileReader("agaricus-lepiota.csv"))
-					.withSkipLines(3)
-					.build();
-			List<String[]> data = csvReader.readAll();
-		} catch (FileNotFoundException fnfe) {
-			System.out.println("Dude, where's my file!");
-			fnfe.printStackTrace();
-		} catch (CsvException ce) {
-			System.out.println("Bruh, this thing you call a csv...it sucks.");
-			ce.printStackTrace();
-		} catch (IOException ioe) {
-			System.out.println("If you see this, you did something very wrong.");
-			ioe.printStackTrace();
-		}
+		List<String[]> data = readCSV("agaricus-lepiota.csv");
 		
 		
 		
@@ -203,6 +183,14 @@ public class OWLAPIFirst {
             // Setup
             OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
             OWLDataFactory factory = manager.getOWLDataFactory();
+            
+            
+            File file = new File("../../ontologies/mushroom.rdf"); //or pizza.owl.xml
+            OWLOntology mushroomOntology = manager.loadOntologyFromOntologyDocument(file);
+            System.out.println(mushroomOntology);
+            System.out.println("Yay!");
+            
+            
             IRI ontologyIRI = IRI.create("http://example.org/mushroom");
             OWLOntology ontology = manager.createOntology(ontologyIRI);
 
@@ -243,7 +231,12 @@ public class OWLAPIFirst {
        
             
             //THE FACTORY CAN MAKE SWRLVariables!  Yay!
+         
             SWRLVariable var = factory.getSWRLVariable(IRI.create(ontologyIRI + "#x"));
+            
+ 
+            
+            
             
 
             Random rand = new Random();
@@ -352,4 +345,36 @@ public class OWLAPIFirst {
 		
 		
 	}
+	
+	
+	
+	public 
+	
+		
+	public static List<String[]> readCSV(String filename) {
+		//"agaricus-lepiota.csv"
+		CSVParser csvParser = new CSVParserBuilder()
+				.withSeparator(',')
+				.withIgnoreQuotations(true)
+				.build();
+		
+		List<String[]> data = null;
+		try {
+			CSVReader csvReader = new CSVReaderBuilder(new FileReader(filename))
+					.withSkipLines(3)
+					.build();
+			data = csvReader.readAll();
+		} catch (FileNotFoundException fnfe) {
+			System.out.println("Dude, where's my file!");
+			fnfe.printStackTrace();
+		} catch (CsvException ce) {
+			System.out.println("Bruh, this thing you call a csv...it sucks.");
+			ce.printStackTrace();
+		} catch (IOException ioe) {
+			System.out.println("If you see this, you did something very wrong.");
+			ioe.printStackTrace();
+		}
+		return data;
+	}
+	
 }
