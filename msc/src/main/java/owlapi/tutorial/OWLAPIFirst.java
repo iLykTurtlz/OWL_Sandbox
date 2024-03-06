@@ -346,10 +346,7 @@ public class OWLAPIFirst {
 		
 	}
 	
-	
-	
-	public 
-	
+
 		
 	public static List<String[]> readCSV(String filename) {
 		//"agaricus-lepiota.csv"
