@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -21,9 +22,12 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
+import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
@@ -35,6 +39,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 import com.opencsv.CSVParser;
 import com.opencsv.CSVParserBuilder;
@@ -175,6 +180,9 @@ public class OWLAPIFirst {
 		//Read the Mushrooms dataset into 'data'
 		List<String[]> data = readCSV("agaricus-lepiota.csv");
 		
+		String[] attributes = {"edible","capShape","capSurface","capColor","bruises","odor","gillAttachment","gillSpacing","gillSize","gillColor","stalkShape","stalkRoot","stalkSurfaceAboveRing","stalkSurfaceBelowRing","stalkColorAboveRing","stalkColorBelowRing","veilType","veilColor","ringNumber","ringType","sporePrintColor","population","habitat"};
+		
+		
 		
 		
 		
@@ -185,9 +193,37 @@ public class OWLAPIFirst {
             OWLDataFactory factory = manager.getOWLDataFactory();
             
             
-            File file = new File("../../ontologies/mushroom.rdf"); //or pizza.owl.xml
+            File file = new File("./mushroom.rdf"); //or pizza.owl.xml
             OWLOntology mushroomOntology = manager.loadOntologyFromOntologyDocument(file);
             System.out.println(mushroomOntology);
+            
+            Optional<IRI> possibleOntologyIRI = mushroomOntology.getOntologyID().getOntologyIRI();
+            IRI mushroomOntologyIRI = null;
+            if (possibleOntologyIRI.isPresent()) {
+            	mushroomOntologyIRI = possibleOntologyIRI.get();
+            	System.out.println(mushroomOntologyIRI);
+            } else {
+            	System.out.println("No IRI");
+            }
+
+            populateOntology(data, attributes, mushroomOntologyIRI, manager, mushroomOntology, factory);
+            
+            for (OWLNamedIndividual individual : mushroomOntology.getIndividualsInSignature()) {
+                System.out.println("Individual: " + individual.getIRI());
+
+                // Print data property values
+                for (OWLDataPropertyAssertionAxiom dataPropertyAssertionAxiom : mushroomOntology.getDataPropertyAssertionAxioms(individual)) {
+                    System.out.println("Data Property: " + dataPropertyAssertionAxiom.getProperty().asOWLDataProperty().getIRI());
+                    System.out.println("Value: " + dataPropertyAssertionAxiom.getObject());
+                }
+
+                // Add more code to handle other types of axioms if needed (object properties, classes, etc.)
+                // ...
+
+                System.out.println(); // Add a line break between individuals
+            }
+            
+           
             System.out.println("Yay!");
             
             
@@ -345,6 +381,33 @@ public class OWLAPIFirst {
 		
 		
 	}
+	
+	
+	
+	public static void populateOntology(List<String[]> rows, String[] attributes, IRI ontologyIRI, OWLOntologyManager man, OWLOntology o, OWLDataFactory df) {
+		int exampleNumber = 0;
+		for (String[] row : rows) {
+			if (row.length != attributes.length) {
+				System.out.println("Rows are the wrong length");
+				return;
+			}
+			OWLNamedIndividual individual = df.getOWLNamedIndividual(IRI.create(ontologyIRI.toString()+"#"+exampleNumber));
+			for (int i=0; i<row.length; i++) {
+				OWLDataProperty dp = df.getOWLDataProperty(IRI.create(ontologyIRI.toString()+"#"+attributes[i]));
+				OWLDataPropertyAssertionAxiom dpaa; 
+				OWLLiteral literal;
+				if (row[i].equals("edible")) {
+					literal = df.getOWLLiteral(row[i], OWL2Datatype.XSD_BOOLEAN);
+				} else {
+					literal = df.getOWLLiteral(row[i], OWL2Datatype.XSD_STRING);	
+				}
+				dpaa = df.getOWLDataPropertyAssertionAxiom(dp, individual, literal);
+				man.addAxiom(o, dpaa);
+			}
+			exampleNumber++;
+		}
+	}
+	
 	
 
 		
