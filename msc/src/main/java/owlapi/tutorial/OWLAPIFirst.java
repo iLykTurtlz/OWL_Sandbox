@@ -185,8 +185,6 @@ public class OWLAPIFirst {
 		
 		
 		
-		
-		
         try {
             // Setup
             OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
@@ -207,6 +205,10 @@ public class OWLAPIFirst {
             }
 
             populateOntology(data, attributes, mushroomOntologyIRI, manager, mushroomOntology, factory);
+            
+            File populatedOntologyFile = new File("./mushroomPopulated.rdf");
+            manager.saveOntology(mushroomOntology, IRI.create(populatedOntologyFile.toURI()));
+            System.out.println("Ontology with samples saved to " + populatedOntologyFile.getAbsolutePath());
             
             for (OWLNamedIndividual individual : mushroomOntology.getIndividualsInSignature()) {
                 System.out.println("Individual: " + individual.getIRI());
