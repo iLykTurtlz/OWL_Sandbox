@@ -2,11 +2,13 @@ package owlapi.tutorial;
 
 import java.io.File;
 import java.util.Optional;
+import java.util.Set;
 
 import org.semanticweb.HermiT.Reasoner;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
@@ -66,21 +68,20 @@ public class MushroomReasoner {
 		for (int i=0; i<example.length; i++) {
 			OWLDataProperty dp = factory.getOWLDataProperty(IRI.create(mushroomOntologyIRI.toString()+"#"+mushroomAttributes[i]));
 			OWLDataPropertyAssertionAxiom dpaa; 
-			OWLLiteral literal = factory.getOWLLiteral
-			if (example[i].equals("edible")) {
-				literal = df.getOWLLiteral(row[i], OWL2Datatype.XSD_BOOLEAN);
-			} else {
-				literal = df.getOWLLiteral(row[i], OWL2Datatype.XSD_STRING);	
-			}
-			dpaa = df.getOWLDataPropertyAssertionAxiom(dp, individual, literal);
-			man.addAxiom(o, dpaa);
+			OWLLiteral literal = factory.getOWLLiteral(example[i], OWL2Datatype.XSD_STRING);
+			dpaa = factory.getOWLDataPropertyAssertionAxiom(dp, individual, literal);
+			manager.addAxiom(mushroomOntology, dpaa);
 		}
-    	
+		return individual;
     }
     
     
-    public boolean isMushroomEdible(String [] example) {
+    public boolean isEdible(String [] example) {
+    	OWLNamedIndividual mushroom = createIndividual(example);
+    	//Set<OWLClassExpression> assertedClasses = mushroom.getTypes(mushroomOntology);
     	
+    	OWLClass chOMPClass = factory.getOWLClass(":ChildOfMarriedParents", pm); 
+    	OWLClassAssertionAxiom edible = factory.getOWLClassAssertionAxiom(null, mushroom)
     	
     	return false;
     }
