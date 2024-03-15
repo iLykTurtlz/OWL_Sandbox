@@ -26,6 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.IOException;
 
 /* EXAMPLE
  * MushroomClassifier mushroomClassifier = new MushroomClassifier();
@@ -44,7 +45,7 @@ import java.io.File;
  * Evaluation eval = mushroomClassifier.evaluate();
  */
 public class MushroomClassifier {
-    private static Logger log = LoggerFactory.getLogger(IrisClassifier.class);
+    private static Logger log = LoggerFactory.getLogger(MushroomClassifier.class);
 
     public static class DataSetCache {
         public final DataSet trainData;
@@ -123,7 +124,15 @@ public class MushroomClassifier {
     // The normalizer will still be used regardless, but you have the option to re-fit it
     public void fit(String filepath, int labelIndex, boolean fitNormalizer, int batchSize, int iterations, boolean shuffleData, double trainTestSplitRatio, int recordScoreFrequency) {
         //TODO: load dataset with `filePath` and `recordReader`
-        recordReader.initialize(new FileSplit(new File(filepath)));
+        try {
+			recordReader.initialize(new FileSplit(new File(filepath)));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
         DataSetIterator iterator = new RecordReaderDataSetIterator(recordReader, batchSize, labelIndex, NUM_CLASSES);
         DataSet allData = iterator.next();
@@ -134,7 +143,7 @@ public class MushroomClassifier {
 
         // Train test split
         DataSet trainingData = null;
-        if (trainTestSplit > 0.0) {
+        if (trainTestSplitRatio > 0.0) {
             SplitTestAndTrain testAndTrain = allData.splitTestAndTrain(trainTestSplitRatio);  // Use trainTestSplitRatio% of data for training
 
             DataSet trainData = testAndTrain.getTrain();

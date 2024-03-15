@@ -1,0 +1,660 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom/"
+     xml:base="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+     xmlns:swrla="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#"
+     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+     xmlns:mushroom="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    
+
+
+    <!-- http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled -->
+
+
+    <owl:AnnotationProperty rdf:about="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    
+
+
+    <!-- http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#bruises -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#bruises">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#Mushroom"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#capColor -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#capColor">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#Mushroom"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#capShape -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#capShape">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#Mushroom"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#capSurface -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#capSurface">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#Mushroom"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#edible -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#edible">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#Mushroom"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#gillAttachment -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#gillAttachment">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#Mushroom"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#gillColor -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#gillColor">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#Mushroom"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#gillSize -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#gillSize">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#Mushroom"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#gillSpacing -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#gillSpacing">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#Mushroom"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#habitat -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#habitat">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#Mushroom"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#odor -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#odor">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#Mushroom"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#population -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#population">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#Mushroom"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#ringNumber -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#ringNumber">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#Mushroom"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#ringType -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#ringType">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#Mushroom"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#sporePrintColor -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#sporePrintColor">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#Mushroom"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#stalkColorAboveRing -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#stalkColorAboveRing">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#Mushroom"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#stalkColorBelowRing -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#stalkColorBelowRing">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#Mushroom"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#stalkRoot -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#stalkRoot">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#Mushroom"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#stalkShape -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#stalkShape">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#Mushroom"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#stalkSurfaceAboveRing -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#stalkSurfaceAboveRing">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#Mushroom"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#stalkSurfaceBelowRing -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#stalkSurfaceBelowRing">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#Mushroom"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#veilColor -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#veilColor">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#Mushroom"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#veilType -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#veilType">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#Mushroom"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    
+
+
+    <!-- http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#EdibleMushroom -->
+
+
+    <owl:Class rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#EdibleMushroom">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#Mushroom"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#Mushroom -->
+
+
+    <owl:Class rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#Mushroom"/>
+    
+
+
+    <!-- http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#PoisonousMushroom -->
+
+
+    <owl:Class rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#PoisonousMushroom">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#Mushroom"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    
+
+
+    <!-- http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#mushroom1 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#mushroom1">
+        <rdf:type rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#PoisonousMushroom"/>
+        <mushroom:bruises>t</mushroom:bruises>
+        <mushroom:capColor>n</mushroom:capColor>
+        <mushroom:capShape>x</mushroom:capShape>
+        <mushroom:capSurface>s</mushroom:capSurface>
+        <mushroom:gillAttachment>f</mushroom:gillAttachment>
+        <mushroom:gillColor>k</mushroom:gillColor>
+        <mushroom:gillSize>n</mushroom:gillSize>
+        <mushroom:gillSpacing>c</mushroom:gillSpacing>
+        <mushroom:odor>p</mushroom:odor>
+        <mushroom:population>s</mushroom:population>
+        <mushroom:ringNumber>o</mushroom:ringNumber>
+        <mushroom:ringType>p</mushroom:ringType>
+        <mushroom:sporePrintColor>k</mushroom:sporePrintColor>
+        <mushroom:stalkColorAboveRing>w</mushroom:stalkColorAboveRing>
+        <mushroom:stalkColorBelowRing>w</mushroom:stalkColorBelowRing>
+        <mushroom:stalkRoot>e</mushroom:stalkRoot>
+        <mushroom:stalkShape>e</mushroom:stalkShape>
+        <mushroom:stalkSurfaceAboveRing>s</mushroom:stalkSurfaceAboveRing>
+        <mushroom:stalkSurfaceBelowRing>s</mushroom:stalkSurfaceBelowRing>
+        <mushroom:veilColor>w</mushroom:veilColor>
+        <mushroom:veilType>p</mushroom:veilType>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#mushroom3 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#mushroom3">
+        <rdf:type rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#PoisonousMushroom"/>
+        <mushroom:bruises>t</mushroom:bruises>
+        <mushroom:capColor>y</mushroom:capColor>
+        <mushroom:capShape>x</mushroom:capShape>
+        <mushroom:capSurface>s</mushroom:capSurface>
+        <mushroom:gillAttachment>f</mushroom:gillAttachment>
+        <mushroom:gillColor>k</mushroom:gillColor>
+        <mushroom:gillSize>b</mushroom:gillSize>
+        <mushroom:gillSpacing>c</mushroom:gillSpacing>
+        <mushroom:odor>a</mushroom:odor>
+        <mushroom:population>n</mushroom:population>
+        <mushroom:ringNumber>o</mushroom:ringNumber>
+        <mushroom:ringType>p</mushroom:ringType>
+        <mushroom:sporePrintColor>n</mushroom:sporePrintColor>
+        <mushroom:stalkColorAboveRing>w</mushroom:stalkColorAboveRing>
+        <mushroom:stalkColorBelowRing>w</mushroom:stalkColorBelowRing>
+        <mushroom:stalkRoot>c</mushroom:stalkRoot>
+        <mushroom:stalkShape>e</mushroom:stalkShape>
+        <mushroom:stalkSurfaceAboveRing>s</mushroom:stalkSurfaceAboveRing>
+        <mushroom:stalkSurfaceBelowRing>s</mushroom:stalkSurfaceBelowRing>
+        <mushroom:veilColor>w</mushroom:veilColor>
+        <mushroom:veilType>p</mushroom:veilType>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#mushroom5 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#mushroom5">
+        <rdf:type rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#PoisonousMushroom"/>
+        <mushroom:bruises>t</mushroom:bruises>
+        <mushroom:capColor>w</mushroom:capColor>
+        <mushroom:capShape>b</mushroom:capShape>
+        <mushroom:capSurface>s</mushroom:capSurface>
+        <mushroom:gillAttachment>f</mushroom:gillAttachment>
+        <mushroom:gillColor>n</mushroom:gillColor>
+        <mushroom:gillSize>b</mushroom:gillSize>
+        <mushroom:gillSpacing>c</mushroom:gillSpacing>
+        <mushroom:odor>l</mushroom:odor>
+        <mushroom:population>n</mushroom:population>
+        <mushroom:ringNumber>o</mushroom:ringNumber>
+        <mushroom:ringType>p</mushroom:ringType>
+        <mushroom:sporePrintColor>n</mushroom:sporePrintColor>
+        <mushroom:stalkColorAboveRing>w</mushroom:stalkColorAboveRing>
+        <mushroom:stalkColorBelowRing>w</mushroom:stalkColorBelowRing>
+        <mushroom:stalkRoot>c</mushroom:stalkRoot>
+        <mushroom:stalkShape>e</mushroom:stalkShape>
+        <mushroom:stalkSurfaceAboveRing>s</mushroom:stalkSurfaceAboveRing>
+        <mushroom:stalkSurfaceBelowRing>s</mushroom:stalkSurfaceBelowRing>
+        <mushroom:veilColor>w</mushroom:veilColor>
+        <mushroom:veilType>p</mushroom:veilType>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#mushroom7 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#mushroom7">
+        <rdf:type rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#PoisonousMushroom"/>
+        <mushroom:bruises>t</mushroom:bruises>
+        <mushroom:capColor>w</mushroom:capColor>
+        <mushroom:capShape>x</mushroom:capShape>
+        <mushroom:capSurface>y</mushroom:capSurface>
+        <mushroom:gillAttachment>f</mushroom:gillAttachment>
+        <mushroom:gillColor>n</mushroom:gillColor>
+        <mushroom:gillSize>n</mushroom:gillSize>
+        <mushroom:gillSpacing>c</mushroom:gillSpacing>
+        <mushroom:odor>p</mushroom:odor>
+        <mushroom:population>s</mushroom:population>
+        <mushroom:ringNumber>o</mushroom:ringNumber>
+        <mushroom:ringType>p</mushroom:ringType>
+        <mushroom:sporePrintColor>k</mushroom:sporePrintColor>
+        <mushroom:stalkColorAboveRing>w</mushroom:stalkColorAboveRing>
+        <mushroom:stalkColorBelowRing>w</mushroom:stalkColorBelowRing>
+        <mushroom:stalkRoot>e</mushroom:stalkRoot>
+        <mushroom:stalkShape>e</mushroom:stalkShape>
+        <mushroom:stalkSurfaceAboveRing>s</mushroom:stalkSurfaceAboveRing>
+        <mushroom:stalkSurfaceBelowRing>s</mushroom:stalkSurfaceBelowRing>
+        <mushroom:veilColor>w</mushroom:veilColor>
+        <mushroom:veilType>p</mushroom:veilType>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#mushroom9 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#mushroom9">
+        <rdf:type rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#PoisonousMushroom"/>
+        <mushroom:bruises>f</mushroom:bruises>
+        <mushroom:capColor>g</mushroom:capColor>
+        <mushroom:capShape>x</mushroom:capShape>
+        <mushroom:capSurface>s</mushroom:capSurface>
+        <mushroom:gillAttachment>f</mushroom:gillAttachment>
+        <mushroom:gillColor>k</mushroom:gillColor>
+        <mushroom:gillSize>b</mushroom:gillSize>
+        <mushroom:gillSpacing>w</mushroom:gillSpacing>
+        <mushroom:odor>n</mushroom:odor>
+        <mushroom:population>a</mushroom:population>
+        <mushroom:ringNumber>o</mushroom:ringNumber>
+        <mushroom:ringType>e</mushroom:ringType>
+        <mushroom:sporePrintColor>n</mushroom:sporePrintColor>
+        <mushroom:stalkColorAboveRing>w</mushroom:stalkColorAboveRing>
+        <mushroom:stalkColorBelowRing>w</mushroom:stalkColorBelowRing>
+        <mushroom:stalkRoot>e</mushroom:stalkRoot>
+        <mushroom:stalkShape>t</mushroom:stalkShape>
+        <mushroom:stalkSurfaceAboveRing>s</mushroom:stalkSurfaceAboveRing>
+        <mushroom:stalkSurfaceBelowRing>s</mushroom:stalkSurfaceBelowRing>
+        <mushroom:veilColor>w</mushroom:veilColor>
+        <mushroom:veilType>p</mushroom:veilType>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#testShroom -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#testShroom">
+        <rdf:type rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#Mushroom"/>
+        <mushroom:capColor>w</mushroom:capColor>
+        <mushroom:habitat>l</mushroom:habitat>
+        <mushroom:sporePrintColor>g</mushroom:sporePrintColor>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Rules
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    <rdf:Description rdf:about="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom/x">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description>
+        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+        <rdfs:comment></rdfs:comment>
+        <rdfs:label>test</rdfs:label>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#Mushroom"/>
+                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom/x"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#PoisonousMushroom"/>
+                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom/x"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+    <rdf:Description>
+        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+        <rdfs:comment></rdfs:comment>
+        <rdfs:label>poisonRule1</rdfs:label>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#Mushroom"/>
+                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom/x"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#habitat"/>
+                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom/x"/>
+                                <swrl:argument2>l</swrl:argument2>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#capColor"/>
+                                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom/x"/>
+                                        <swrl:argument2>w</swrl:argument2>
+                                    </rdf:Description>
+                                </rdf:first>
+                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#edible"/>
+                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom/x"/>
+                        <swrl:argument2>p</swrl:argument2>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+    <rdf:Description>
+        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+        <rdfs:comment></rdfs:comment>
+        <rdfs:label>poisonRule2</rdfs:label>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#Mushroom"/>
+                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom/x"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#habitat"/>
+                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom/x"/>
+                                <swrl:argument2>l</swrl:argument2>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#capColor"/>
+                                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom/x"/>
+                                        <swrl:argument2>w</swrl:argument2>
+                                    </rdf:Description>
+                                </rdf:first>
+                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom#PoisonousMushroom"/>
+                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/CSC481/ontologies/2024/mushroom/x"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 5.1.8.2018-12-01T21:26:47Z) https://github.com/owlcs/owlapi/ -->
+
+

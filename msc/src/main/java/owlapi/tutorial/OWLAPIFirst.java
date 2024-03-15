@@ -7,6 +7,8 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -20,6 +22,7 @@ import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -178,212 +181,264 @@ public class OWLAPIFirst {
 		
 		
 		//Read the Mushrooms dataset into 'data'
-		List<String[]> data = readCSV("agaricus-lepiota.csv");
-		
-		
-		
+		List<String[]> data = readCSV("agaricus-lepiota.csv"); // List<String[]> -> List<int[]> -> List<float[][]> -> float[][][] -> Nd4j.create(<float[][][]>);
 		String[] attributes = {"edible","capShape","capSurface","capColor","bruises","odor","gillAttachment","gillSpacing","gillSize","gillColor","stalkShape","stalkRoot","stalkSurfaceAboveRing","stalkSurfaceBelowRing","stalkColorAboveRing","stalkColorBelowRing","veilType","veilColor","ringNumber","ringType","sporePrintColor","population","habitat"};
 		
+		String[] features = Arrays.copyOfRange(attributes, 1, attributes.length-1);
+		List<String []> points = removeFirstColumn(data);
 		
+		
+		MushroomClassifier mc = new MushroomClassifier();
 		
 		
         try {
+        	MushroomReasoner inferenceAgent = new MushroomReasoner("mushroom.rdf", features);
+        	System.out.println("Here are the SWRL rules:");
+        	inferenceAgent.listSWRLRules();
+        	
+        	//populateOntology(data, attributes, inferenceAgent.getMushroomOntologyIRI(), inferenceAgent.getManager(), inferenceAgent.getMushroomOntology(), inferenceAgent.getFactory());
+        	
+        	//inferenceAgent.reason();
+        	//inferenceAgent.test();
+        	//inferenceAgent.save("mushroomTest.rdf");
+        	
+        	
+        	//inferenceAgent.reason();
+        	
+//        	 for (OWLAxiom axiom : inferenceAgent.getMushroomOntology().getAxioms()) {
+//                 // Check if the axiom is an assertion about an individual
+//                 if (axiom instanceof OWLClassAssertionAxiom) {
+//                     OWLClassAssertionAxiom classAssertio//        	 for (OWLAxiom axiom : inferenceAgent.getMushroomOntology().getAxioms()) {
+//          // Check if the axiom is an assertion about an individual
+//          if (axiom instanceof OWLClassAssertionAxiom) {
+//              OWLClassAssertionAxiom classAssertionAxiom = (OWLClassAssertionAxiom) axiom;
+//              OWLClassExpression classExpression = classAssertionAxiom.getClassExpression();
+//              // Check if the class expression is a named individual
+//              if (classExpression instanceof OWLNamedIndividual) {
+//                  OWLNamedIndividual individual = (OWLNamedIndividual) classExpression;
+//                  System.out.println("NamedIndividual: " + individual.getIRI());
+//              }
+//          }
+//      }nAxiom = (OWLClassAssertionAxiom) axiom;
+//                     OWLClassExpression classExpression = classAssertionAxiom.getClassExpression();
+//                     // Check if the class expression is a named individual
+//                     if (classExpression instanceof OWLNamedIndividual) {
+//                         OWLNamedIndividual individual = (OWLNamedIndividual) classExpression;
+//                         System.out.println("NamedIndividual: " + individual.getIRI());
+//                     }
+//                 }
+//             }
+        	
+        	System.out.println("\nThe following mushrooms are poisonous:");
+        	int row=4;
+        	for (int i=0; i<5; i++) {
+        		if (inferenceAgent.isPoisonous(points.get(i))) {
+        			System.out.println("Row "+row);
+        		}
+        		row++;
+        	}
+        	
+        	inferenceAgent.save("test.rdf");
+        	//inferenceAgent.test();
+        	
+        	
+        	
+        	
+        	//inferenceAgent.think();
+        	
+        	
             // Setup
-            OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-            OWLDataFactory factory = manager.getOWLDataFactory();
+            //OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+            //OWLDataFactory factory = manager.getOWLDataFactory();
             
             
-            File file = new File("./mushroom.rdf"); //or pizza.owl.xml
-            OWLOntology mushroomOntology = manager.loadOntologyFromOntologyDocument(file);
-            System.out.println(mushroomOntology);
+            //File file = new File("./mushroom.rdf"); //or pizza.owl.xml
+            //OWLOntology mushroomOntology = manager.loadOntologyFromOntologyDocument(file);
+            //System.out.println(mushroomOntology);
             
-            Optional<IRI> possibleOntologyIRI = mushroomOntology.getOntologyID().getOntologyIRI();
-            IRI mushroomOntologyIRI = null;
-            if (possibleOntologyIRI.isPresent()) {
-            	mushroomOntologyIRI = possibleOntologyIRI.get();
-            	System.out.println(mushroomOntologyIRI);
-            } else {
-            	System.out.println("No IRI");
-            }
-
-            populateOntology(data, attributes, mushroomOntologyIRI, manager, mushroomOntology, factory);
-            
-            File populatedOntologyFile = new File("./mushroomPopulated.rdf");
-            manager.saveOntology(mushroomOntology, IRI.create(populatedOntologyFile.toURI()));
-            System.out.println("Ontology with samples saved to " + populatedOntologyFile.getAbsolutePath());
-            
-            for (OWLNamedIndividual individual : mushroomOntology.getIndividualsInSignature()) {
-                System.out.println("Individual: " + individual.getIRI());
-
-                // Print data property values
-                for (OWLDataPropertyAssertionAxiom dataPropertyAssertionAxiom : mushroomOntology.getDataPropertyAssertionAxioms(individual)) {
-                    System.out.println("Data Property: " + dataPropertyAssertionAxiom.getProperty().asOWLDataProperty().getIRI());
-                    System.out.println("Value: " + dataPropertyAssertionAxiom.getObject());
-                }
-
-                // Add more code to handle other types of axioms if needed (object properties, classes, etc.)
-                // ...
-
-                System.out.println(); // Add a line break between individuals
-            }
-            
-           
-            System.out.println("Yay!");
-            
-            
-            IRI ontologyIRI = IRI.create("http://example.org/mushroom");
-            OWLOntology ontology = manager.createOntology(ontologyIRI);
-
-            // Define Classes
-            OWLClass mushroomClass = factory.getOWLClass(IRI.create(ontologyIRI + "#Mushroom"));
-            OWLClass edibleClass = factory.getOWLClass(IRI.create(ontologyIRI + "#Edible"));
-            OWLClass poisonousClass = factory.getOWLClass(IRI.create(ontologyIRI + "#Poisonous"));
-
-            // Define Properties
-            OWLObjectProperty hasCapShape = factory.getOWLObjectProperty(IRI.create(ontologyIRI + "#hasCapShape"));
-            OWLObjectProperty hasCapColor = factory.getOWLObjectProperty(IRI.create(ontologyIRI + "#hasCapColor"));
-            OWLObjectProperty hasHabitat = factory.getOWLObjectProperty(IRI.create(ontologyIRI + "#hasHabitat"));
-            OWLObjectProperty hasEdibility = factory.getOWLObjectProperty(IRI.create(ontologyIRI + "#hasEdibility"));
-            
-            OWLNamedIndividual leavesHabitat = factory.getOWLNamedIndividual(IRI.create(ontologyIRI + "#Leaves"));
-            OWLNamedIndividual whiteCapColor = factory.getOWLNamedIndividual(IRI.create(ontologyIRI + "#White"));
-            
-            OWLClassExpression leavesHabitatCondition = factory.getOWLObjectSomeValuesFrom(hasHabitat, factory.getOWLClass(leavesHabitat.getIRI()));
-            OWLClassExpression whiteCapColorCondition = factory.getOWLObjectSomeValuesFrom(hasCapColor, factory.getOWLClass(whiteCapColor.getIRI()));
-
-            // Combine the conditions using an AND operator
-            OWLClassExpression poisonousMushroomCondition = factory.getOWLObjectIntersectionOf(leavesHabitatCondition, whiteCapColorCondition);
-
-            // Specify that mushrooms meeting these conditions are poisonous
-            OWLAxiom axiom = factory.getOWLSubClassOfAxiom(poisonousMushroomCondition, poisonousClass);
-
-            // Add the axiom to the ontology
-            manager.addAxiom(ontology, axiom);
-
-            // Add axioms to declare classes and properties in the ontology
-            manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(mushroomClass));
-            manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(edibleClass));
-            manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(poisonousClass));
-            manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(hasCapShape));
-            manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(hasCapColor));
-            manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(hasHabitat));
-            manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(hasEdibility));
-       
-            
-            //THE FACTORY CAN MAKE SWRLVariables!  Yay!
-         
-            SWRLVariable var = factory.getSWRLVariable(IRI.create(ontologyIRI + "#x"));
-            
- 
-            
-            
-            
-
-            Random rand = new Random();
-            String[] capShapes = {"bell", "conical", "convex", "flat", "knobbed", "sunken"};
-            String[] capColors = {"white", "yellow", "brown", "red", "green", "blue", "purple", "pink", "black", "orange"};
-            String[] habitats = {"leaves", "woods", "meadows", "paths", "urban", "grass", "waste"};
-
-            // Generate 10 sample mushrooms
-            for (int i = 1; i <= 10; i++) {
-                OWLNamedIndividual mushroom = factory.getOWLNamedIndividual(IRI.create(ontologyIRI + "#Mushroom" + i));
-                String selectedShape = capShapes[rand.nextInt(capShapes.length)];
-                String selectedHabitat = habitats[rand.nextInt(habitats.length)];
-                String selectedCapColor = capColors[rand.nextInt(capColors.length)];
-
-                // Assign properties to the mushroom
-                OWLNamedIndividual shapeIndividual = factory.getOWLNamedIndividual(IRI.create(ontologyIRI + "#" + selectedShape));
-                OWLNamedIndividual habitatIndividual = factory.getOWLNamedIndividual(IRI.create(ontologyIRI + "#" + selectedHabitat));
-                OWLNamedIndividual capColorIndividual = factory.getOWLNamedIndividual(IRI.create(ontologyIRI + "#" + selectedCapColor));
-
-                manager.addAxiom(ontology, factory.getOWLObjectPropertyAssertionAxiom(hasCapShape, mushroom, shapeIndividual));
-                manager.addAxiom(ontology, factory.getOWLObjectPropertyAssertionAxiom(hasCapColor, mushroom, capColorIndividual));
-                manager.addAxiom(ontology, factory.getOWLObjectPropertyAssertionAxiom(hasHabitat, mushroom, habitatIndividual));
-
-                // Determine the edibility based on the conditions
-                OWLNamedIndividual edibilityStatus;
-                if (selectedHabitat.equals("leaves") && selectedCapColor.equals("white")) {
-                    edibilityStatus = factory.getOWLNamedIndividual(IRI.create(ontologyIRI + "#Poisonous"));
-                } else {
-                    edibilityStatus = factory.getOWLNamedIndividual(IRI.create(ontologyIRI + "#Edible"));
-                }
-
-                // Explicitly assign the edibility status to the mushroom
-                manager.addAxiom(ontology, factory.getOWLObjectPropertyAssertionAxiom(hasEdibility, mushroom, edibilityStatus));
-            }
-            
-            for (OWLNamedIndividual mushroom : ontology.getIndividualsInSignature()) {
-                System.out.println("Mushroom: " + mushroom.getIRI().getShortForm());
-                
-                Set<OWLObjectPropertyAssertionAxiom> properties = ontology.getObjectPropertyAssertionAxioms(mushroom);
-                for (OWLObjectPropertyAssertionAxiom property : properties) {
-                    System.out.println("Property: " + property.getProperty().asOWLObjectProperty().getIRI().getShortForm() +
-                                       ", Value: " + property.getObject().asOWLNamedIndividual().getIRI().getShortForm());
-                }
-                System.out.println("------");
-            }
-
-            // Save the ontology with the sample data
-            File ontologyFile = new File("mushroomOntologyWithSamples.owl");
-            manager.saveOntology(ontology, IRI.create(ontologyFile.toURI()));
-            System.out.println("Ontology with samples saved to " + ontologyFile.getAbsolutePath());
-        } catch (OWLOntologyCreationException | OWLOntologyStorageException e) {
+//            Optional<IRI> possibleOntologyIRI = mushroomOntology.getOntologyID().getOntologyIRI();
+//            IRI mushroomOntologyIRI = null;
+//            if (possibleOntologyIRI.isPresent()) {
+//            	mushroomOntologyIRI = possibleOntologyIRI.get();
+//            	System.out.println(mushroomOntologyIRI);
+//            } else {
+//            	System.out.println("No IRI");
+//            }
+//
+//            populateOntology(data, attributes, mushroomOntologyIRI, manager, mushroomOntology, factory);
+//            
+//            File populatedOntologyFile = new File("./mushroomPopulated.rdf");
+//            manager.saveOntology(mushroomOntology, IRI.create(populatedOntologyFile.toURI()));
+//            System.out.println("Ontology with samples saved to " + populatedOntologyFile.getAbsolutePath());
+//            
+//            for (OWLNamedIndividual individual : mushroomOntology.getIndividualsInSignature()) {
+//                System.out.println("Individual: " + individual.getIRI());
+//
+//                // Print data property values
+//                for (OWLDataPropertyAssertionAxiom dataPropertyAssertionAxiom : mushroomOntology.getDataPropertyAssertionAxioms(individual)) {
+//                    System.out.println("Data Property: " + dataPropertyAssertionAxiom.getProperty().asOWLDataProperty().getIRI());
+//                    System.out.println("Value: " + dataPropertyAssertionAxiom.getObject());
+//                }
+//
+//                // Add more code to handle other types of axioms if needed (object properties, classes, etc.)
+//                // ...
+//
+//                System.out.println(); // Add a line break between individuals
+//            }
+//            
+//           
+//            System.out.println("Yay!");
+//            
+//            
+//             ontologyIRI = IRI.create("http://example.org/mushroom");
+//            OWLOntology ontology = manager.createOntology(ontologyIRI);
+//
+//            // Define Classes
+//            OWLClass mushroomClass = factory.getOWLClass(IRI.create(ontologyIRI + "#Mushroom"));
+//            OWLClass edibleClass = factory.getOWLClass(IRI.create(ontologyIRI + "#Edible"));
+//            OWLClass poisonousClass = factory.getOWLClass(IRI.create(ontologyIRI + "#Poisonous"));
+//
+//            // Define Properties
+//            OWLObjectProperty hasCapShape = factory.getOWLObjectProperty(IRI.create(ontologyIRI + "#hasCapShape"));
+//            OWLObjectProperty hasCapColor = factory.getOWLObjectProperty(IRI.create(ontologyIRI + "#hasCapColor"));
+//            OWLObjectProperty hasHabitat = factory.getOWLObjectProperty(IRI.create(ontologyIRI + "#hasHabitat"));
+//            OWLObjectProperty hasEdibility = factory.getOWLObjectProperty(IRI.create(ontologyIRI + "#hasEdibility"));
+//            
+//            OWLNamedIndividual leavesHabitat = factory.getOWLNamedIndividual(IRI.create(ontologyIRI + "#Leaves"));
+//            OWLNamedIndividual whiteCapColor = factory.getOWLNamedIndividual(IRI.create(ontologyIRI + "#White"));
+//            
+//            OWLClassExpression leavesHabitatCondition = factory.getOWLObjectSomeValuesFrom(hasHabitat, factory.getOWLClass(leavesHabitat.getIRI()));
+//            OWLClassExpression whiteCapColorCondition = factory.getOWLObjectSomeValuesFrom(hasCapColor, factory.getOWLClass(whiteCapColor.getIRI()));
+//
+//            // Combine the conditions using an AND operator
+//            OWLClassExpression poisonousMushroomCondition = factory.getOWLObjectIntersectionOf(leavesHabitatCondition, whiteCapColorCondition);
+//
+//            // Specify that mushrooms meeting these conditions are poisonous
+//            OWLAxiom axiom = factory.getOWLSubClassOfAxiom(poisonousMushroomCondition, poisonousClass);
+//
+//            // Add the axiom to the ontology
+//            manager.addAxiom(ontology, axiom);
+//
+//            // Add axioms to declare classes and properties in the ontology
+//            manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(mushroomClass));
+//            manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(edibleClass));
+//            manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(poisonousClass));
+//            manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(hasCapShape));
+//            manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(hasCapColor));
+//            manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(hasHabitat));
+//            manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(hasEdibility));
+//       
+//            
+//            //THE FACTORY CAN MAKE SWRLVariables!  Yay!
+//         
+//            SWRLVariable var = factory.getSWRLVariable(IRI.create(ontologyIRI + "#x"));
+//            
+// 
+//            
+//            
+//            
+//
+//            Random rand = new Random();
+//            String[] capShapes = {"bell", "conical", "convex", "flat", "knobbed", "sunken"};
+//            String[] capColors = {"white", "yellow", "brown", "red", "green", "blue", "purple", "pink", "black", "orange"};
+//            String[] habitats = {"leaves", "woods", "meadows", "paths", "urban", "grass", "waste"};
+//
+//            // Generate 10 sample mushrooms
+//            for (int i = 1; i <= 10; i++) {
+//                OWLNamedIndividual mushroom = factory.getOWLNamedIndividual(IRI.create(ontologyIRI + "#Mushroom" + i));
+//                String selectedShape = capShapes[rand.nextInt(capShapes.length)];
+//                String selectedHabitat = habitats[rand.nextInt(habitats.length)];
+//                String selectedCapColor = capColors[rand.nextInt(capColors.length)];
+//
+//                // Assign properties to the mushroom
+//                OWLNamedIndividual shapeIndividual = factory.getOWLNamedIndividual(IRI.create(ontologyIRI + "#" + selectedShape));
+//                OWLNamedIndividual habitatIndividual = factory.getOWLNamedIndividual(IRI.create(ontologyIRI + "#" + selectedHabitat));
+//                OWLNamedIndividual capColorIndividual = factory.getOWLNamedIndividual(IRI.create(ontologyIRI + "#" + selectedCapColor));
+//
+//                manager.addAxiom(ontology, factory.getOWLObjectPropertyAssertionAxiom(hasCapShape, mushroom, shapeIndividual));
+//                manager.addAxiom(ontology, factory.getOWLObjectPropertyAssertionAxiom(hasCapColor, mushroom, capColorIndividual));
+//                manager.addAxiom(ontology, factory.getOWLObjectPropertyAssertionAxiom(hasHabitat, mushroom, habitatIndividual));
+//
+//                // Determine the edibility based on the conditions
+//                OWLNamedIndividual edibilityStatus;
+//                if (selectedHabitat.equals("leaves") && selectedCapColor.equals("white")) {
+//                    edibilityStatus = factory.getOWLNamedIndividual(IRI.create(ontologyIRI + "#Poisonous"));
+//                } else {
+//                    edibilityStatus = factory.getOWLNamedIndividual(IRI.create(ontologyIRI + "#Edible"));
+//                }
+//
+//                // Explicitly assign the edibility status to the mushroom
+//                manager.addAxiom(ontology, factory.getOWLObjectPropertyAssertionAxiom(hasEdibility, mushroom, edibilityStatus));
+//            }
+//            
+//            for (OWLNamedIndividual mushroom : ontology.getIndividualsInSignature()) {
+//                System.out.println("Mushroom: " + mushroom.getIRI().getShortForm());
+//                
+//                Set<OWLObjectPropertyAssertionAxiom> properties = ontology.getObjectPropertyAssertionAxioms(mushroom);
+//                for (OWLObjectPropertyAssertionAxiom property : properties) {
+//                    System.out.println("Property: " + property.getProperty().asOWLObjectProperty().getIRI().getShortForm() +
+//                                       ", Value: " + property.getObject().asOWLNamedIndividual().getIRI().getShortForm());
+//                }
+//                System.out.println("------");
+//            }
+//
+//            // Save the ontology with the sample data
+//            File ontologyFile = new File("mushroomOntologyWithSamples.owl");
+//            manager.saveOntology(ontology, IRI.create(ontologyFile.toURI()));
+//            System.out.println("Ontology with samples saved to " + ontologyFile.getAbsolutePath());
+        } catch (OWLOntologyCreationException e) {
             e.printStackTrace();
         }
+//        } catch (OWLOntologyStorageException e) {
+//        	e.printStackTrace();
+//        }
+        catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("mushroomSamples.txt"))) {
-            OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-            File file = new File("mushroomOntologyWithSamples.owl");
-            OWLOntology ontology = manager.loadOntologyFromOntologyDocument(file);
-            
-            writer.write("MushroomID,CapShape,CapColor,Edibility");
-            writer.newLine();
+//        try (BufferedWriter writer = new BufferedWriter(new FileWriter("mushroomSamples.txt"))) {
+//            OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+//            File file = new File("mushroomOntologyWithSamples.owl");
+//            OWLOntology ontology = manager.loadOntologyFromOntologyDocument(file);
+//            
+//            writer.write("MushroomID,CapShape,CapColor,Edibility");
+//            writer.newLine();
+//
+//            // Iterate over all individuals in the ontology
+//            for (OWLNamedIndividual mushroom : ontology.getIndividualsInSignature()) {
+//                String mushroomID = mushroom.getIRI().getShortForm();
+//                String capShape = "", capColor = "", edibility = "";
+//
+//                Set<OWLObjectPropertyAssertionAxiom> properties = ontology.getObjectPropertyAssertionAxioms(mushroom);
+//                for (OWLObjectPropertyAssertionAxiom property : properties) {
+//                    OWLNamedIndividual object = property.getObject().asOWLNamedIndividual();
+//                    String propertyShortForm = property.getProperty().asOWLObjectProperty().getIRI().getShortForm();
+//                    String objectShortForm = object.getIRI().getShortForm();
+//
+//                    if (propertyShortForm.equals("hasCapShape")) {
+//                        capShape = objectShortForm;
+//                    } else if (propertyShortForm.equals("hasCapColor")) {
+//                        capColor = objectShortForm;
+//                    } else if (propertyShortForm.equals("hasEdibility")) {
+//                        edibility = objectShortForm;
+//                    }
+//                }
+//
+//                // Write the mushroom details to the file only if all attributes are present
+//                if (!mushroomID.startsWith("Mushroom")) {
+//                    continue; // Skip non-mushroom individuals
+//                }
+//
+//                writer.write(mushroomID + "," + capShape + "," + capColor + "," + edibility);
+//                writer.newLine();
+//            }
+//
+//            System.out.println("Sample data saved to mushroomSamples.txt");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
-            // Iterate over all individuals in the ontology
-            for (OWLNamedIndividual mushroom : ontology.getIndividualsInSignature()) {
-                String mushroomID = mushroom.getIRI().getShortForm();
-                String capShape = "", capColor = "", edibility = "";
-
-                Set<OWLObjectPropertyAssertionAxiom> properties = ontology.getObjectPropertyAssertionAxioms(mushroom);
-                for (OWLObjectPropertyAssertionAxiom property : properties) {
-                    OWLNamedIndividual object = property.getObject().asOWLNamedIndividual();
-                    String propertyShortForm = property.getProperty().asOWLObjectProperty().getIRI().getShortForm();
-                    String objectShortForm = object.getIRI().getShortForm();
-
-                    if (propertyShortForm.equals("hasCapShape")) {
-                        capShape = objectShortForm;
-                    } else if (propertyShortForm.equals("hasCapColor")) {
-                        capColor = objectShortForm;
-                    } else if (propertyShortForm.equals("hasEdibility")) {
-                        edibility = objectShortForm;
-                    }
-                }
-
-                // Write the mushroom details to the file only if all attributes are present
-                if (!mushroomID.startsWith("Mushroom")) {
-                    continue; // Skip non-mushroom individuals
-                }
-
-                writer.write(mushroomID + "," + capShape + "," + capColor + "," + edibility);
-                writer.newLine();
-            }
-
-            System.out.println("Sample data saved to mushroomSamples.txt");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        
-		
-		
-		
-		
-		
-
-		
-		
-		
 	}
 	
 	
@@ -439,6 +494,14 @@ public class OWLAPIFirst {
 			ioe.printStackTrace();
 		}
 		return data;
+	}
+	
+	public static List<String []> removeFirstColumn(List<String []> arr) {
+		List<String []> result = new ArrayList<>();
+		for (String [] row : arr) {
+			result.add(Arrays.copyOfRange(row, 1, row.length - 1));
+		}
+		return result;
 	}
 	
 }
